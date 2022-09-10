@@ -1,0 +1,15 @@
+pipeline {
+	agent { label 'maven' }
+		stages {
+                stage('git_checkout') {
+		   steps {
+                   git branch: 'main', credentialsId: 'Lnt_git_credential', url: 'https://github.com/vidya-1995/javawebapp.git'
+			}
+		}
+      stage('Build') {
+		   steps {
+             sh "mvn clean install"
+			}
+		}
+  }
+}
