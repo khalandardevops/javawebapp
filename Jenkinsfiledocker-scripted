@@ -1,4 +1,6 @@
 node{
+
+  def buildNumber = ${env.BUILD_NUMBER}
   stage('checkout'){
     git branch: 'main', credentialsId: 'Git_Cred', url: 'https://github.com/khalandardevops/javawebapp.git'
   }
@@ -6,6 +8,6 @@ node{
     sh 'mvn clean install'
   }
   stage('Docker Image Build'){
-    sh 'docker build -t mohdkhalandar/javawebappdockerscriptedpipeline:${env.BUILD_NUMBER}'
+    sh 'docker build -t mohdkhalandar/javawebappdockerscriptedpipeline:${buildNumber}'
   }
 }
