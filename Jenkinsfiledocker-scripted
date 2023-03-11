@@ -1,6 +1,6 @@
 node{
 
-  def buildNumber = ${env.BUILD_NUMBER}
+  def buildNumber = "${env.BUILD_NUMBER}"
   stage('checkout'){
     git branch: 'main', credentialsId: 'Git_Cred', url: 'https://github.com/khalandardevops/javawebapp.git'
   }
