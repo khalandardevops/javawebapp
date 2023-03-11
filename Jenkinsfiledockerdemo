@@ -27,11 +27,11 @@ pipeline {
                 echo "build Number is ${buildNumber}"
             }
         }
-        /*stage('Build Docker Image') {
+        stage('Build Docker Image') {
             steps {                
                 sh "docker build -t mohdkhalandar/javaewbappdocker:${buildNumber} ."
             }
-        }*/
+        }
         /*stage('Push DockerImage to Docker Hub') {
             steps {  
                 docker login -u mohdkhalandar -p 
