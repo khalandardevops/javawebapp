@@ -1,7 +1,9 @@
 pipeline {
     agent any
     
-    def buildNumber = BUILD_NUMBER
+    environment {
+             buildNumber = "BUILD_NUMBER"
+        }
 
     /*tools {
         // Install the Maven version configured as "M3" and add it to the path.
