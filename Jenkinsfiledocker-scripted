@@ -9,5 +9,6 @@ node{
   }
   stage('Docker Image Build'){
     sh 'docker build -t mohdkhalandar/javawebappdockerscriptedpipeline:${buildNumber} .'
+    sh "docker build -t mohdkhalandar/javaewbappdocker:${buildNumber} ."
   }
 }
