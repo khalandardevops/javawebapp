@@ -21,13 +21,14 @@ pipeline {
             steps {
                 // Run Maven on a Unix agent.
                 sh "mvn clean package"
+                echo "${env.BUILD_NUMBER}"
             }
         }
-        stage('Build Docker Image') {
+        /*stage('Build Docker Image') {
             steps {                
                 sh "docker build -t mohdkhalandar/javaewbappdocker:${buildNumber} ."
             }
-        }
+        }*/
         /*stage('Push DockerImage to Docker Hub') {
             steps {  
                 docker login -u mohdkhalandar -p 
