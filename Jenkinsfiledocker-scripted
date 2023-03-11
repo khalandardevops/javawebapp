@@ -11,10 +11,14 @@ node{
   stage('Docker Image Build'){
     sh "docker build -t mohdkhalandar/javawebappdockerscriptedpipeline:${buildNumber} ."
   }
-  stage('Push Docker Image to Docker HUB'){
+  stage('Login to Docker HUB and Push Docker Image to Docker HUB'){
     withCredentials([string(credentialsId: 'Docker_Hub_Secret_Key', variable: 'Docker_Hub_Secret_Key')]) {
     sh "docker login -u mohdkhalandar -p ${Docker_Hub_Secret_Key}"
     }
     sh "docker push mohdkhalandar/javawebappdockerscriptedpipeline:${buildNumber}"
+  }
+  stage('Deploy Docker Image in other server'){
+    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.47.85 docker rm -f javawebappdocker || true"
+    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.47.85 docker run -d --name javawebappdocker -p 8080:8080 mohdkhalandar/javawebappdockerscriptedpipeline:${buildNumber}"
   }
 }
