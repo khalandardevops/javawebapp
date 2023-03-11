@@ -12,7 +12,9 @@ node{
     sh "docker build -t mohdkhalandar/javawebappdockerscriptedpipeline:${buildNumber} ."
   }
   stage('Push Docker Image to Docker HUB'){
-    sh "docker login -u mohdkhalandar -p QWJ1bWRrYWxpODU="
+    withCredentials([string(credentialsId: 'Docker_Hub_Secret_Key', variable: 'Docker_Hub_Secret_Key')]) {
+    sh "docker login -u mohdkhalandar -p ${Docker_Hub_Secret_Key}"
+    }
     sh "docker push mohdkhalandar/javawebappdockerscriptedpipeline:${buildNumber}"
   }
 }
