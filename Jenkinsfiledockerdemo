@@ -29,14 +29,14 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {                
-                sh "docker build -t mohdkhalandar/javaewbappdockerDeclarativepipeline:${buildNumber} ."
+                sh "docker build -t mohdkhalandar/javaewbappdockerdeclarativepipeline:${buildNumber} ."
             }
         }
         stage('Login and Push DockerImage to Docker Hub') {
             steps {            
                 withCredentials([string(credentialsId: 'Docker_Hub_Secret_Key', variable: 'DockerHub_Cred')]) {
                 sh "docker login -u mohdkhalandar -p ${DockerHub_Cred}"
-                sh "docker push mohdkhalandar/javaewbappdockerDeclarativepipeline:${buildNumber}"
+                sh "docker push mohdkhalandar/javaewbappdockerdeclarativepipeline:${buildNumber}"
                 }
             }
         }
@@ -44,7 +44,7 @@ pipeline {
             steps{
                 sshagent(['PemKey-Tomcat']) {
                     sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.47.85 docker rm -f javawebapp || true"
-                    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.47.85 docker create --name javawebapp mohdkhalandar/javaewbappdockerDeclarativepipeline:${buildNumber}"
+                    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.47.85 docker create --name javawebapp mohdkhalandar/javaewbappdockerdeclarativepipeline:${buildNumber}"
                     sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.47.85 docker start -d javawebapp"
                 }
             }
