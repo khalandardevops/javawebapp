@@ -177,8 +177,12 @@
                             class="action-btn first2 duplicate ui-resizable-handle" title="Duplicate"
                             style="display: none;"><i class="glyphicon glyphicon-duplicate"></i></a>
                         <div id="edit1" class="libres" data-chars="65">
+                            
                             <p><span
-                                    style="color: #FFFFFF; font-family: 'Open Sans', sans-serif; font-size: 48px; font-weight: normal; line-height: 52px;">MOhammad Dada Khalandar - Book
+                                    style="color: #FFFFFF; font-family: 'Open Sans', sans-serif; font-size: 48px; font-weight: normal; line-height: 52px;">Mohammad Dada Khalandar</p>
+                            
+                            <p><span
+                                    style="color: #FFFFFF; font-family: 'Open Sans', sans-serif; font-size: 48px; font-weight: normal; line-height: 52px;">Book
                                     This Limited Time Edition Merc Now and Get a High Discount of 70%</span></p>
                         </div>
                     </div>
