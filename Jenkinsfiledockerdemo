@@ -45,7 +45,7 @@ pipeline {
                 sshagent(['PemKey-Tomcat']) {
                     sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.47.85 docker rm -f javawebappdockerpipeline || true"
                     sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.47.85 docker create --name javawebappdockerpipeline mohdkhalandar/javaewbappdockerdeclarativepipeline:${buildNumber}"
-                    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.47.85 docker start -d javawebappdockerpipeline"
+                    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.47.85 docker start javawebappdockerpipeline"
                 }
             }
         }
