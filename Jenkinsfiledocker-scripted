@@ -1,6 +1,6 @@
 node{
 
-  //def buildNumber = BUILD_NUMBER
+  def buildNumber = BUILD_NUMBER
   
   stage('checkout'){
     git branch: 'main', credentialsId: 'Git_Cred', url: 'https://github.com/khalandardevops/javawebapp.git'
@@ -9,13 +9,13 @@ node{
     sh 'mvn clean install'
   }
   stage('Docker Image Build'){
-    sh "docker build -t mohdkhalandar/javawebappdockerscriptedpipeline:BUILD_NUMBER ."
+    sh "docker build -t mohdkhalandar/javawebappdockerscriptedpipeline:${buildNumber} ." //we can use BUILD_NUMBER by defining as Global Variable as in Line no 3 
   }
   stage('Login to Docker HUB and Push Docker Image to Docker HUB'){
     withCredentials([string(credentialsId: 'Docker_Hub_Secret_Key', variable: 'Docker_Hub_Secret_Key')]) {
     sh "docker login -u mohdkhalandar -p ${Docker_Hub_Secret_Key}"
     }
-    sh "docker push mohdkhalandar/javawebappdockerscriptedpipeline:BUILD_NUMBER"
+    sh "docker push mohdkhalandar/javawebappdockerscriptedpipeline:BUILD_NUMBER"  //we can use BUILD_NUMBER Directly becouse its Jenkins Variabale 
   }
   stage('Deploy Docker Image in other server'){
     
