@@ -18,7 +18,7 @@ node{
     sh "docker push mohdkhalandar/javawebappdockerscriptedpipeline:${buildNumber}"
   }
   stage('Deploy Docker Image in other server'){
-    sh "ssh /*-o StrictHostKeyChecking=no */ec2-user@172.31.47.85 docker rm -f javawebappdocker || true"
-    sh "ssh /*-o StrictHostKeyChecking=no */ec2-user@172.31.47.85 docker run -d --name javawebappdocker -p 8080:8080 mohdkhalandar/javawebappdockerscriptedpipeline:${buildNumber}"
+    sh "ssh ec2-user@172.31.47.85 docker rm -f javawebappdocker || true"
+    sh "ssh ec2-user@172.31.47.85 docker run -d --name javawebappdocker -p 8080:8080 mohdkhalandar/javawebappdockerscriptedpipeline:${buildNumber}"
   }
 }
