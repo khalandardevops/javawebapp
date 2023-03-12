@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-             buildNumber = "${BUILD_NUMBER}"
+             buildNumber = "${BUILD_NUMBER}"  // we can use like this also -->  buildNumber = "${env.BUILD_NUMBER}"
         }
 
     /*tools {
