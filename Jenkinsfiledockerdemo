@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Get some code from a GitHub repository
+                // Get code from a GitHub repository
                 git branch: 'main', credentialsId: 'Git_Cred', url: 'https://github.com/khalandardevops/javawebapp.git'
                 }
                 }
@@ -29,15 +29,26 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {                
-                sh "docker build -t mohdkhalandar/javaewbappdocker:${buildNumber} ."
+                sh "docker build -t mohdkhalandar/javaewbappdockerDeclarativepipeline:${buildNumber} ."
             }
         }
-        /*stage('Push DockerImage to Docker Hub') {
-            steps {  
-                docker login -u mohdkhalandar -p 
-                docker push mohdkhalandar/javaewbappdocker:${buildNumber}
+        stage('Login and Push DockerImage to Docker Hub') {
+            steps {            
+                withCredentials([string(credentialsId: 'Docker_Hub_Secret_Key', variable: 'DockerHub_Cred')]) {
+                sh "docker login -u mohdkhalandar -p ${DockerHub_Cred}"
+                sh "docker push mohdkhalandar/javaewbappdockerDeclarativepipeline:${buildNumber}"
+                }
             }
-        }*/
+        }
+        stage('Deploy Docker Image to Other Server'){
+            steps{
+                sshagent(['PemKey-Tomcat']) {
+                    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.47.85 docker rm -f javawebapp || true"
+                    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.47.85 docker create --name javawebapp mohdkhalandar/javaewbappdockerDeclarativepipeline:${buildNumber}"
+                    sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.47.85 docker start -d javawebapp"
+                }
+            }
+        }
         
     }
 }
